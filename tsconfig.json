@@ -1,4 +1,5 @@
 {
+  "API_URL" : "http://localhost:8080/calculator",
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
