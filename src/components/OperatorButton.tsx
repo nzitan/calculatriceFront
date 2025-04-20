@@ -14,6 +14,6 @@ export default function OperatorButton({value , calculator, setCalculator}: Butt
             if( calculator.nombre1.length === 0 && value === "-" ){
                 setCalculator({nombre1 : calculator.nombre1+value, nombre2 : calculator.nombre2, operator : calculator.operator, result : ""});
             }
-        }} className="number">{value}</button>
+        }} className="number m-[5px] bg-gray-500 hover:bg-gray-700">{value}</button>
     );
 }

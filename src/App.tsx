@@ -14,48 +14,56 @@ function App() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(calculator)
     };
-    const response = await fetch(configData.API_URL, requestOptions);
-    const data = await response.json();
-    if( data.status === 0){
-      setCalculator({nombre1 : "", nombre2 : "", operator : "", result : data.message});
-    } else {
-      setCalculator({nombre1 : "", nombre2 : "", operator : "", result : "ERROR"});
+    try {
+      const response = await fetch(configData.API_URL, requestOptions);
+      const data = await response.json();
+      if( data.status === 0){
+        setCalculator({nombre1 : "", nombre2 : "", operator : "", result : data.message});
+      } else {
+        setCalculator({nombre1 : "", nombre2 : "", operator : "", result : "ERROR"});
+      }
+    } catch(error) {
+      console.log(error)
+      setCalculator({nombre1 : "", nombre2 : "", operator : "", result : "API ERROR"});
     }
-    
   }
 
   return (
     <>
       <div className="card">
-        <input type="text" className='display' disabled value={calculator.result? calculator.result : calculator.nombre1 + " " + calculator.operator + " " + calculator.nombre2} />
+        <input type="text" className='display flex-auto' disabled value={calculator.result? calculator.result : calculator.nombre1 + " " + calculator.operator + " " + calculator.nombre2} />
         <div id="buttons">
+          <div className='row'>
+            <NumberButton value='7' calculator={calculator} setCalculator={setCalculator} />
+            <NumberButton value='8' calculator={calculator} setCalculator={setCalculator} />
+            <NumberButton value='9' calculator={calculator} setCalculator={setCalculator} />  
+          </div> 
+          <div className='row'> 
+            <NumberButton value='4' calculator={calculator} setCalculator={setCalculator} />
+            <NumberButton value='5' calculator={calculator} setCalculator={setCalculator} />
+            <NumberButton value='6' calculator={calculator} setCalculator={setCalculator} />
+          </div>
           <div className='row'>
             <NumberButton value='1' calculator={calculator} setCalculator={setCalculator} />
             <NumberButton value='2' calculator={calculator} setCalculator={setCalculator} />
             <NumberButton value='3' calculator={calculator} setCalculator={setCalculator} />
-            <NumberButton value='4' calculator={calculator} setCalculator={setCalculator} />
-          </div>  
-          <div className='row'>
-            <NumberButton value='5' calculator={calculator} setCalculator={setCalculator} />
-            <NumberButton value='6' calculator={calculator} setCalculator={setCalculator} />
-            <NumberButton value='7' calculator={calculator} setCalculator={setCalculator} />
-            <NumberButton value='8' calculator={calculator} setCalculator={setCalculator} />
           </div>
           <div className='row'>
-            <NumberButton value='9' calculator={calculator} setCalculator={setCalculator} />
-            <OperatorButton value='*' calculator={calculator} setCalculator={setCalculator} />
             <OperatorButton value='+' calculator={calculator} setCalculator={setCalculator} />
+            <NumberButton value='0' calculator={calculator} setCalculator={setCalculator} />
             <OperatorButton value='-' calculator={calculator} setCalculator={setCalculator} />
           </div>
           <div className='row'>
-            <NumberButton value='0' calculator={calculator} setCalculator={setCalculator} />
-            <button className="clear" onClick={()=>{
+            <OperatorButton value='*' calculator={calculator} setCalculator={setCalculator} />
+            <button className="clear m-[5px] bg-gray-500 hover:bg-gray-700" onClick={()=>{
               setCalculator({nombre1 : "", nombre2 : "", operator : "", result : ""})
             }}>C</button>
             <OperatorButton value='/' calculator={calculator} setCalculator={setCalculator} />
-            <button className="equals" onClick={()=>{
-              sendCalculator(calculator);
-            }}>=</button>
+          </div>
+          <div className='row'>
+            <button className="equals bg-gray-500 hover:bg-gray-700" onClick={()=>{
+                sendCalculator(calculator);
+              }}>=</button>
           </div>
         </div>
       </div>

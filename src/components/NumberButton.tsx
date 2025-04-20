@@ -10,6 +10,6 @@ export default function NumberButton({value , calculator, setCalculator}: Button
             } else {
                 setCalculator({nombre1 : calculator.nombre1+value, nombre2 : calculator.nombre2, operator : calculator.operator, result : ""});
             }
-        }} className="number">{value}</button>
+        }} className="number m-[5px] bg-gray-500 hover:bg-gray-700">{value}</button>
     );
 }
